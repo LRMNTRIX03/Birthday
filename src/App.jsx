@@ -5,12 +5,10 @@ import { Gift, Mail, Cake } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 
-// Pages
 import Collection from './pages/Collection'
 import Letter from './pages/Letter'
 import CakeBirthday from './pages/CakeBirthday'
-// import Surat from './pages/Surat'
-// import Kue from './pages/Kue'
+
 
 function App() {
   const [songs] = useState([
@@ -37,7 +35,10 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-100 via-pink-200 to-pink-300">
+      <div className="fixed top-0 left-0 w-full z-50">
       <Navbar />
+      </div>
+      
 
       {/* Audio global */}
       <audio ref={audioRef} src={currentSong} autoPlay loop />
@@ -72,16 +73,16 @@ function Home({ songs, currentSong, setCurrentSong, isMuted, handleMute }) {
         <Marquee
           speed={60}
           gradient={false}
-          className="w-full text-4xl font-bold text-pink-700 overflow-hidden"
+          className="w-full text-4xl font-bold text-pink-700 overflow-hidden mt-[5vh]"
         >
-          🎉 Selamat Ulang Tahun Syamira Layna! Semoga Panjang Umur, Sehat
+Selamat Ulang Tahun Syamira Layna! Semoga Panjang Umur, Sehat
           Selalu, dan Bahagia 🎁
         </Marquee>
       </div>
 
       {/* Playlist Selector */}
-      <div className="flex flex-col items-center gap-4 mt-6">
-        <h2 className="text-lg font-semibold text-pink-700">Pilih Lagu 🎶</h2>
+      <div className="flex flex-col items-center gap-4 mt-2">
+        <h2 className="text-lg font-semibold text-pink-700">Pilih Lagu </h2>
         <div className="flex gap-3">
           {songs.map((song, index) => (
             <button

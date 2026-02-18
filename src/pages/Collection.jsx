@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 export default function Collection() {
-  // list foto (taruh di public/assets/img/collection/ misalnya)
+  
   const photos = [
     "/assets/img/syamira/1.jpg",
     "/assets/img/syamira/2.jpg",
@@ -36,7 +36,7 @@ export default function Collection() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-100 via-pink-200 to-pink-300 p-8">
+    <div className="min-h-screen bg-gradient-to-b from-pink-100 via-pink-200 to-pink-300 p-8 mt-[5vh]">
       <h1 className="text-4xl font-bold text-center text-pink-800 mb-10">
         Koleksi Kenangan Indah Kita 
       </h1>

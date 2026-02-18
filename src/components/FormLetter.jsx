@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 export default function FormLetter() {
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-b from-pink-100 via-pink-200 to-pink-300 flex flex-col justify-center items-center p-8">
+      <div className="min-h-screen bg-gradient-to-b from-pink-100 via-pink-200 to-pink-300 flex flex-col justify-center items-center p-8 mt-[5vh]">
         
      
         <div className="mb-6">

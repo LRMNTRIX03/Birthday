@@ -86,7 +86,7 @@ export default function CakeComponent() {
         onClick={() => setIsLit(!isLit)}
         className="mt-10 px-8 py-3 bg-pink-600 text-white text-lg rounded-full shadow-lg hover:bg-pink-700 transition transform hover:scale-105"
       >
-        {isLit ? "Tiup Lilin 🎂" : "Nyalakan Lilin 🔥"}
+        {isLit ? "Tiup Lilin" : "Nyalakan Lilin"}
       </button>
     </div>
   )
