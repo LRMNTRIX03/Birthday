@@ -29,9 +29,7 @@ export default function Collection() {
     "/assets/img/syamira/25.jpg",
     "/assets/img/syamira/26.jpg",
     "/assets/img/syamira/27.jpg",
-    "/assets/img/syamira/28.jpg",
-    "/assets/img/syamira/29.jpg",
-    "/assets/img/syamira/30.jpg",
+    "/assets/img/syamira/28.jpg"
 
   ]
 
