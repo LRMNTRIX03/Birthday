@@ -11,7 +11,7 @@ import CakeBirthday from './pages/CakeBirthday'
 
 function App() {
   const [songs] = useState([
-    { name: "500 Miles", src: "/assets/music/500.mp3" },
+    { name: "500 Miles", src: "/assets/music/500_mill.mp3" },
     { name: "Happy Birthday", src: "/assets/music/birthday.mp3" },
     { name: "Dandelions", src: "/assets/music/dandelions.mp3" },
   ])
