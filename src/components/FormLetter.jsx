@@ -29,7 +29,7 @@ export default function Letter() {
 </p>
 
 <p>
-  Semoga di usia yang ke-23 ini semua doa dan harapan terbaik kamu satu per satu bisa terwujud. Semoga karier dan rezekimu semakin lancar, kesehatan selalu menyertai, startup yang sedang kamu bangun berkembang dengan baik, seminar proposalnya dimudahkan, dan semua impian yang sedang kamu perjuangkan bisa tercapai. Kamu pantas mendapatkan banyak kebahagiaan dan hal-hal terbaik dalam hidup ini, sayang.
+  Semoga di usia yang ke-23 ini semua doa dan harapan terbaik kamu satu per satu bisa terwujud. Semoga karier dan rezekimu semakin lancar, kesehatan selalu menyertai, startup yang sedang kamu bangun berkembang dengan baik, semoga mendapatkan pekerjaan yag lebih baik dan amat baik, dan semua impian yang sedang kamu perjuangkan bisa tercapai. Kamu pantas mendapatkan banyak kebahagiaan dan hal-hal terbaik dalam hidup ini, sayang.
 </p>
 
 <p>
