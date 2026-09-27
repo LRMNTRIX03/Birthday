@@ -1,76 +1,50 @@
 import { Link } from "react-router-dom"
-export default function Collection() {
-  
-  const photos = [
-    "/assets/img/syamira/1.jpg",
-    "/assets/img/syamira/2.jpg",
-    "/assets/img/syamira/3.jpg",
-    "/assets/img/syamira/4.jpg",
-    "/assets/img/syamira/5.jpg",
-    "/assets/img/syamira/6.jpg",
-    "/assets/img/syamira/7.jpg",
-    "/assets/img/syamira/8.jpg",
-    "/assets/img/syamira/9.jpg",
-    "/assets/img/syamira/10.jpg",
-    "/assets/img/syamira/11.jpg",
-    "/assets/img/syamira/12.jpg",
-    "/assets/img/syamira/13.jpg",
-    "/assets/img/syamira/14.jpg",
-    "/assets/img/syamira/15.jpg",
-    "/assets/img/syamira/16.jpg",
-    "/assets/img/syamira/17.jpg",
-    "/assets/img/syamira/18.jpg",
-    "/assets/img/syamira/19.jpg",
-    "/assets/img/syamira/20.jpg",
-    "/assets/img/syamira/21.jpg",
-    "/assets/img/syamira/22.jpg",
-    "/assets/img/syamira/23.jpg",
-    "/assets/img/syamira/24.jpg",
-    "/assets/img/syamira/25.jpg",
-    "/assets/img/syamira/26.jpg",
-    "/assets/img/syamira/27.jpg",
-    "/assets/img/syamira/28.jpg"
 
-  ]
+export default function Collection() {
+  const photos = Array.from(
+    { length: 28 },
+    (_, i) => `/assets/img/syamira/${i + 1}.jpg`
+  )
+  
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-100 via-pink-200 to-pink-300 p-8 mt-[5vh]">
-      <h1 className="text-4xl font-bold text-center text-pink-800 mb-10">
-        Koleksi Kenangan Indah Kita 
-      </h1>
-      <div className="flex items-center justify-center">
-      <Link 
-            to="/" 
-            className="text-pink-700 hover:underline font-medium text-lg"
-          >
-            ← Kembali ke Home
-          </Link>
-          </div>
+    <div className="min-h-screen bg-[#F6F3EC] pt-28 pb-20 px-8">
+      <div className="max-w-5xl mx-auto mb-14">
+        <Link
+          to="/"
+          className="text-sm text-[#8B8579] hover:text-[#171512] transition-colors font-[Inter]"
+        >
+          ← Kembali ke Home
+        </Link>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <h1 className="font-[Playfair_Display] text-4xl sm:text-5xl text-[#171512] mt-6">
+          Koleksi Kenangan Indah Kita
+        </h1>
+        <p className="text-[#8B8579] font-[Inter] mt-3 max-w-xl">
+          Arahkan kursor ke tiap foto untuk mengenang warnanya kembali.
+        </p>
+      </div>
+
+      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-px bg-[#DDD6C7]">
         {photos.map((src, index) => (
-          <div
-            key={index}
-            className="relative group overflow-hidden rounded-2xl shadow-lg"
-          >
+          <div key={index} className="relative group overflow-hidden bg-[#F6F3EC] aspect-[4/5]">
             <img
               src={src}
-              alt={`Foto ${index + 1}`}
-              className="w-full h-72 object-cover transform transition duration-500 group-hover:scale-110"
+              alt={`Foto kenangan ${index + 1}`}
+              loading="lazy"
+              className="w-full h-full object-cover grayscale group-hover:grayscale-0 transform transition-all duration-700 group-hover:scale-105"
             />
-          
-            <div className="absolute inset-0  bg-opacity-0 group-hover:bg-opacity-40 transition duration-500 flex justify-center items-center">
-              <span className="text-white text-xl font-semibold opacity-0 group-hover:opacity-100 transition">
-                ❤️ Untukmu Sayang ❤️
+            <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-[#171512]/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-500">
+              <span className="text-[#F6F3EC] text-sm font-[Playfair_Display] italic">
+                Untukmu, sayang
               </span>
             </div>
           </div>
         ))}
       </div>
 
-     
-      <p className="mt-10 text-center text-pink-700 italic">
-        Setiap momen bersama kamu adalah hadiah terindah 💕 maaf yaa ga semuanya sayang...
+      <p className="max-w-2xl mx-auto mt-14 text-center text-[#8B8579] italic font-[Playfair_Display] text-lg">
+        Setiap momen bersama kamu adalah hadiah terindah — maaf yaa ga semuanya sayang...
       </p>
     </div>
   )

@@ -1,7 +1,7 @@
 import './App.css'
 import Navbar from './components/Navbar'
 import Marquee from 'react-fast-marquee'
-import { Gift, Mail, Cake } from 'lucide-react'
+import { Gift, Mail, Cake, Volume2, VolumeX } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 
@@ -9,9 +9,9 @@ import Collection from './pages/Collection'
 import Letter from './pages/Letter'
 import CakeBirthday from './pages/CakeBirthday'
 
-
 function App() {
   const [songs] = useState([
+    { name: "500 Miles", src: "/assets/music/500.mp3" },
     { name: "Happy Birthday", src: "/assets/music/birthday.mp3" },
     { name: "Dandelions", src: "/assets/music/dandelions.mp3" },
   ])
@@ -26,7 +26,8 @@ function App() {
       })
     }
   }, [currentSong])
- const handleMute = () => {
+
+  const handleMute = () => {
     if (audioRef.current) {
       audioRef.current.muted = !audioRef.current.muted
       setIsMuted(audioRef.current.muted)
@@ -34,11 +35,10 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-100 via-pink-200 to-pink-300">
+    <div className="min-h-screen bg-[#F6F3EC] text-[#171512]">
       <div className="fixed top-0 left-0 w-full z-50">
-      <Navbar />
+        <Navbar />
       </div>
-      
 
       {/* Audio global */}
       <audio ref={audioRef} src={currentSong} autoPlay loop />
@@ -57,8 +57,8 @@ function App() {
           }
         />
         <Route path="/collection" element={<Collection />} />
-         <Route path="/surat" element={<Letter />} /> 
-         <Route path="/kue" element={<CakeBirthday />} /> 
+        <Route path="/surat" element={<Letter />} />
+        <Route path="/kue" element={<CakeBirthday />} />
       </Routes>
     </div>
   )
@@ -68,84 +68,106 @@ function App() {
 function Home({ songs, currentSong, setCurrentSong, isMuted, handleMute }) {
   return (
     <>
-      {/* Marquee */}
-      <div className="w-full py-6 mt-10">
-        <Marquee
-          speed={60}
-          gradient={false}
-          className="w-full text-4xl font-bold text-pink-700 overflow-hidden mt-[5vh]"
-        >
-Selamat Ulang Tahun Syamira Layna! Semoga Panjang Umur, Sehat
-          Selalu, dan Bahagia 🎁
+      {/* Hero */}
+      <section className="relative w-full h-screen overflow-hidden">
+        <img
+          src="/assets/img/syamira/main.jpeg"
+          alt="Syamira"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#171512] via-[#171512]/45 to-[#171512]/10" />
+
+        <div className="relative z-10 h-full flex flex-col justify-end px-8 sm:px-16 pb-20 pt-32">
+          <p className="text-[#D9CFB8] text-sm sm:text-base tracking-[0.15em] mb-4 font-[Inter]">
+            23 Tahun &mdash; Hari yang Ditunggu
+          </p>
+          <h1 className="text-[#F6F3EC] text-5xl sm:text-7xl leading-[1.05] font-[Playfair_Display] max-w-3xl">
+            Selamat Ulang Tahun, Syamira Layna Kesayanganku ❤️
+          </h1>
+          <p className="text-[#D9CFB8] text-lg sm:text-xl italic font-[Playfair_Display] mt-6 max-w-xl">
+            Semoga panjang umur, sehat selalu, dan bahagia.
+          </p>
+        </div>
+      </section>
+
+      {/* Ticker tipis */}
+      <div className="w-full border-y border-[#DDD6C7] bg-[#F6F3EC] py-3">
+        <Marquee speed={45} gradient={false}>
+          {Array.from({ length: 6 }).map((_, i) => (
+            <span
+              key={i}
+              className="text-[#8B8579] text-sm sm:text-base font-[Inter] mx-8"
+            >
+              Selamat ulang tahun &nbsp;•&nbsp; Semoga sehat selalu &nbsp;•&nbsp; Semoga bahagia
+            </span>
+          ))}
         </Marquee>
       </div>
 
-      {/* Playlist Selector */}
-      <div className="flex flex-col items-center gap-4 mt-2">
-        <h2 className="text-lg font-semibold text-pink-700">Pilih Lagu </h2>
-        <div className="flex gap-3">
-          {songs.map((song, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSong(song.src)}
-              className={`px-4 py-2 rounded-lg shadow-md transition ${
-                currentSong === song.src
-                  ? 'bg-pink-500 text-white'
-                  : 'bg-white text-pink-700 hover:bg-pink-100'
-              }`}
-            >
-              {song.name}
-            </button>
-            
-          ))}
-         <button
-          onClick={handleMute}
-          className="bg-white text-pink-700 hover:bg-pink-100 px-4 py-2 rounded-lg shadow-md"
-        >
-          {isMuted ? "Unmute" : "Mute"}
-        </button>
+      {/* Audio strip */}
+      <section className="max-w-3xl mx-auto px-8 py-14 border-b border-[#DDD6C7]">
+        <p className="text-xs tracking-[0.15em] text-[#8B8579] font-[Inter] mb-4">
+          Sedang Diputar
+        </p>
+        <div className="flex flex-wrap items-center justify-between gap-6">
+          <div className="flex flex-wrap gap-x-8 gap-y-3">
+            {songs.map((song, index) => {
+              const active = currentSong === song.src
+              return (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSong(song.src)}
+                  className={`font-[Playfair_Display] text-xl sm:text-2xl transition-colors ${
+                    active
+                      ? "text-[#171512] underline underline-offset-8 decoration-[#A98F5D]"
+                      : "text-[#8B8579] hover:text-[#171512]"
+                  }`}
+                >
+                  {song.name}
+                </button>
+              )
+            })}
+          </div>
+
+          <button
+            onClick={handleMute}
+            className="flex items-center gap-2 text-sm text-[#8B8579] hover:text-[#171512] transition-colors font-[Inter]"
+          >
+            {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+            {isMuted ? "Unmute" : "Mute"}
+          </button>
         </div>
-      </div>
+      </section>
 
-      {/* Foto utama */}
-      <div className="img-container w-full h-full flex justify-center items-center">
-        <img
-          src="/assets/img/syamira/syam.jpg"
-          alt=""
-          className="w-1/4 h-auto rounded-b-full mt-5"
-        />
-      </div>
-
-      {/* Tombol navigasi */}
-      <div className="flex flex-col items-center gap-6 mt-[5vh] pb-5">
-        <h2 className="text-2xl font-semibold text-pink-800">Klik Aku 🎀</h2>
-        <div className="grid grid-cols-3 gap-6">
-          <Link
-            to="/collection"
-            className="flex flex-col items-center p-6 bg-white rounded-2xl shadow-lg hover:bg-pink-100 transition-all duration-300"
-          >
-            <Gift className="w-10 h-10 text-pink-600 mb-2" />
-            <span className="font-medium text-pink-700">Koleksi</span>
-          </Link>
-
-          <Link
-            to="/surat"
-            className="flex flex-col items-center p-6 bg-white rounded-2xl shadow-lg hover:bg-pink-100 transition-all duration-300"
-          >
-            <Mail className="w-10 h-10 text-pink-600 mb-2" />
-            <span className="font-medium text-pink-700">Surat</span>
-          </Link>
-
-          <Link
-            to="/kue"
-            className="flex flex-col items-center p-6 bg-white rounded-2xl shadow-lg hover:bg-pink-100 transition-all duration-300"
-          >
-            <Cake className="w-10 h-10 text-pink-600 mb-2" />
-            <span className="font-medium text-pink-700">Kue</span>
-          </Link>
+      {/* Navigasi */}
+      <section className="max-w-5xl mx-auto px-8 py-16">
+        <p className="text-xs tracking-[0.15em] text-[#8B8579] font-[Inter] mb-10">
+          Jelajahi
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[#DDD6C7]">
+          <NavCard to="/collection" icon={Gift} title="Koleksi" desc="Kumpulan foto kenangan kita berdua" />
+          <NavCard to="/surat" icon={Mail} title="Surat" desc="Sepucuk surat kecil untukmu" />
+          <NavCard to="/kue" icon={Cake} title="Kue" desc="Tiup lilin, buat satu permintaan" />
         </div>
-      </div>
+      </section>
     </>
+  )
+}
+
+function NavCard({ to, icon: Icon, title, desc }) {
+  return (
+    <Link
+      to={to}
+      className="group flex flex-col gap-4 py-8 sm:py-2 sm:px-10 first:sm:pl-0 last:sm:pr-0"
+    >
+      <Icon className="w-6 h-6 text-[#A98F5D] stroke-[1.4]" />
+      <div>
+        <h3 className="font-[Playfair_Display] text-2xl text-[#171512] group-hover:text-[#A98F5D] transition-colors">
+          {title}
+        </h3>
+        <p className="text-[#8B8579] text-sm font-[Inter] mt-1">{desc}</p>
+      </div>
+    </Link>
   )
 }
 
