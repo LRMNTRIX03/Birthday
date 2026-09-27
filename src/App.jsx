@@ -1,7 +1,7 @@
 import './App.css'
 import Navbar from './components/Navbar'
 import Marquee from 'react-fast-marquee'
-import { Gift, Mail, Cake, Volume2, VolumeX } from 'lucide-react'
+import { Gift, Mail, Cake, Volume2, VolumeX, Play } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 
@@ -19,13 +19,21 @@ function App() {
   const audioRef = useRef(null)
   const [isMuted, setIsMuted] = useState(false)
 
+  // Browser modern memblokir audio bersuara sampai ada interaksi pengguna.
+  // hasStarted menandai apakah gerbang itu sudah dilewati.
+  const [hasStarted, setHasStarted] = useState(false)
+
   useEffect(() => {
-    if (audioRef.current) {
+    if (audioRef.current && hasStarted) {
       audioRef.current.play().catch((err) => {
         console.log("Autoplay dicegah browser:", err)
       })
     }
-  }, [currentSong])
+  }, [currentSong, hasStarted])
+
+  const handleStart = () => {
+    setHasStarted(true)
+  }
 
   const handleMute = () => {
     if (audioRef.current) {
@@ -41,7 +49,7 @@ function App() {
       </div>
 
       {/* Audio global */}
-      <audio ref={audioRef} src={currentSong} autoPlay loop />
+      <audio ref={audioRef} src={currentSong} loop />
 
       <Routes>
         <Route
@@ -53,6 +61,8 @@ function App() {
               setCurrentSong={setCurrentSong}
               isMuted={isMuted}
               handleMute={handleMute}
+              hasStarted={hasStarted}
+              handleStart={handleStart}
             />
           }
         />
@@ -65,7 +75,7 @@ function App() {
 }
 
 // Halaman utama
-function Home({ songs, currentSong, setCurrentSong, isMuted, handleMute }) {
+function Home({ songs, currentSong, setCurrentSong, isMuted, handleMute, hasStarted, handleStart }) {
   return (
     <>
       {/* Hero */}
@@ -87,6 +97,17 @@ function Home({ songs, currentSong, setCurrentSong, isMuted, handleMute }) {
           <p className="text-[#D9CFB8] text-lg sm:text-xl italic font-[Playfair_Display] mt-6 max-w-xl">
             Semoga panjang umur, sehat selalu, dan bahagia.
           </p>
+
+          {/* Gerbang interaksi pertama: browser butuh klik sebelum audio bersuara boleh main */}
+          {!hasStarted && (
+            <button
+              onClick={handleStart}
+              className="mt-10 inline-flex items-center gap-3 self-start px-6 py-3 border border-[#D9CFB8]/60 text-[#F6F3EC] text-sm tracking-[0.1em] font-[Inter] hover:bg-[#F6F3EC] hover:text-[#171512] transition-colors"
+            >
+              <Play className="w-4 h-4" />
+              Putar Musik &amp; Mulai
+            </button>
+          )}
         </div>
       </section>
 
@@ -116,7 +137,10 @@ function Home({ songs, currentSong, setCurrentSong, isMuted, handleMute }) {
               return (
                 <button
                   key={index}
-                  onClick={() => setCurrentSong(song.src)}
+                  onClick={() => {
+                    setCurrentSong(song.src)
+                    if (!hasStarted) handleStart()
+                  }}
                   className={`font-[Playfair_Display] text-xl sm:text-2xl transition-colors ${
                     active
                       ? "text-[#171512] underline underline-offset-8 decoration-[#A98F5D]"
