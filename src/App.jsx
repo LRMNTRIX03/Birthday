@@ -1,7 +1,7 @@
 import './App.css'
 import Navbar from './components/Navbar'
 import Marquee from 'react-fast-marquee'
-import { Gift, Mail, Cake, Volume2, VolumeX, Play } from 'lucide-react'
+import { Gift, Mail, Cake, Volume2, VolumeX } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 
@@ -34,6 +34,24 @@ function App() {
   const handleStart = () => {
     setHasStarted(true)
   }
+
+  // Browser mengizinkan audio bersuara diputar begitu ada interaksi
+  // APA PUN dari pengguna di halaman — jadi kita dengarkan sekali
+  // ke seluruh dokumen (scroll, tap, klik, tombol keyboard), bukan
+  // menunggu tombol "mulai" khusus. Ini yang paling mendekati
+  // "langsung mulai" tanpa membobol kebijakan browser.
+  useEffect(() => {
+    if (hasStarted) return
+
+    const trigger = () => setHasStarted(true)
+    const events = ['click', 'touchstart', 'keydown', 'scroll']
+
+    events.forEach((evt) => window.addEventListener(evt, trigger, { once: true, passive: true }))
+
+    return () => {
+      events.forEach((evt) => window.removeEventListener(evt, trigger))
+    }
+  }, [hasStarted])
 
   const handleMute = () => {
     if (audioRef.current) {
@@ -75,7 +93,7 @@ function App() {
 }
 
 // Halaman utama
-function Home({ songs, currentSong, setCurrentSong, isMuted, handleMute, hasStarted, handleStart }) {
+function Home({ songs, currentSong, setCurrentSong, isMuted, handleMute, hasStarted }) {
   return (
     <>
       {/* Hero */}
@@ -98,15 +116,10 @@ function Home({ songs, currentSong, setCurrentSong, isMuted, handleMute, hasStar
             Semoga panjang umur, sehat selalu, dan bahagia.
           </p>
 
-          {/* Gerbang interaksi pertama: browser butuh klik sebelum audio bersuara boleh main */}
           {!hasStarted && (
-            <button
-              onClick={handleStart}
-              className="mt-10 inline-flex items-center gap-3 self-start px-6 py-3 border border-[#D9CFB8]/60 text-[#F6F3EC] text-sm tracking-[0.1em] font-[Inter] hover:bg-[#F6F3EC] hover:text-[#171512] transition-colors"
-            >
-              <Play className="w-4 h-4" />
-              Putar Musik &amp; Mulai
-            </button>
+            <p className="mt-8 text-[#D9CFB8]/70 text-xs tracking-[0.15em] font-[Inter]">
+              Gulir untuk memulai musik
+            </p>
           )}
         </div>
       </section>
